@@ -1,0 +1,119 @@
+<!--<div class="container">
+	<form (ngSubmit)="modify(f)" #f="ngForm">
+		<div class="form-group">
+      <label class="form-text" for="requestor">Requestor</label>
+			<input type="text" class="form-control col-sm-5" id="requestor" name="name" value="{{ requestor }}">
+		</div>
+		<div class="form-group">
+			<label class="form-text" for="title">Title</label>
+			<input type="text" class="form-control col-sm-5" id="requestor" name="title" ngModel value="{{ title }}">
+			<small class="form-text text-muted">Old title : {{ title }}</small>
+		</div>
+		<br>&nbsp;&nbsp;&nbsp;
+		<button class="btn btn-success" type="submit">SAVE</button> &nbsp;
+		<button class="btn btn-primary" type="submit" (click)="submitSRD(f)">SUBMIT</button>
+
+	</form>
+</div> -->
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+	<li class="nav-item">
+		<a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true">General</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" id="qs1-tab" data-toggle="tab" href="#qs1" role="tab" aria-controls="qs1" aria-selected="false">Questions</a>
+	</li>
+</ul>
+
+<form (ngSubmit)="modify(f)" id="form" #f="ngForm">
+	<br>
+	<!-- TAB 1 - GENERAL -->
+	<div class="tab-content" id="myTabContent">
+		<div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+			<div class="container">
+				<div class="container">
+					<div class="form-group">
+						<label>Reference</label>
+						<input class="form-control col-sm-5" type="text" value="{{ srdToBeModified.referenceNum }}" 
+            ngModel="{{ srdToBeModified.referenceNum }}"
+						 readonly name="srdRef">&nbsp;
+						<small class="form-text text-muted">Please use this Ref ID while tracking the progress on this SRD</small>
+					</div>
+					<div class="form-group">
+						<label>Requestor Email</label>
+						<input class="form-control col-sm-5" type="text" ngModel="{{ srdToBeModified.requestor }}" name="requestor" 
+            value="{{ srdToBeModified.requestor }}">&nbsp;
+						<small class="form-text text-muted">Would help us to reach out to you in case of queries.</small>
+					</div>
+					<div class="form-group">
+						<label>SRD Title</label>
+						<input class="form-control col-sm-5" type="text" ngModel="{{ srdToBeModified.title }}" name="title" 
+            value="{{ srdToBeModified.title }}">&nbsp;
+						<small class="form-text text-muted">Keep it as precise and simple as possible.</small>
+					</div>
+					<div class="form-group">
+						<label>LOB Approver</label>
+						<input class="form-control col-sm-5" name="lobname" value="{{ srdToBeModified.lobname }}" 
+            ngModel="{{ srdToBeModified.lobname }}" readonly>
+
+					</div>
+					<div class="form-group">
+						<label>Status</label>
+						<input class="form-control col-sm-5" type="text" ngModel="{{ srdToBeModified.status }}" 
+            value="{{ srdToBeModified.status }}"
+						 readonly name="status">&nbsp;
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<!-- TAB 2 - QUESTION SET -->
+
+		<div class="tab-pane fade" id="qs1" role="tabpanel" aria-labelledby="qs1-tab">
+			<div class="col-sm-12">
+				<table class="table table-borderless table-hover">
+					<thead>
+						<th>#</th>
+						<th>Question</th>
+						<th>Default Value</th>
+						<th>Type</th>
+						<th>Required</th>
+						<th>Dependency</th>
+						<th></th>
+					</thead>
+					<tbody>
+						<tr *ngFor="let a of srdToBeModified.questions; let index = index;">
+							<td>
+								<label class="form-text">{{ index + 1 }}</label>
+							</td>
+							<td>
+								<input class="form-control" type="text" ngModel="{{ a.question }}" name="question{{index}}" value="{{ a.question }}">
+							</td>
+
+							<td>
+								<input class="form-control" type="{{ a.type }}" ngModel="{{ a.value }}" name="value{{ index }}" value="{{ a.value }}">
+							</td>
+							<td>
+								<input class="form-control" type="text" ngModel="{{ a.type }}" name="value{{ index }}" value="{{ a.type }}" readonly>
+							</td>
+							<td>
+								<input class="form-control" type="text" ngModel="{{ a.required }}" name="required{{index}}" value="{{ a.required }}">
+							</td>
+							<td>
+								<input class="form-control" type="text" ngModel="{{a.dependency}}" name="dependency{{index}}" value="{{a.dependency}}">
+							</td>
+							<td>
+								<button class="btn btn-primary" (click)="deleteQuestion(a)">Delete</button>
+							</td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<button class="btn btn-primary" type="submit">Save</button> &nbsp;
+	<button class="btn btn-primary" type="button" (click)="submitSRD(f)">Submit</button>&nbsp;
+	<button class="btn btn-primary" type="button" (click)="preview()">Preview</button>
+</form>

@@ -1,0 +1,40 @@
+<div class="">
+	<table class="table table-sm table-hover" *ngIf="submittedSRD.length > 0">
+		<thead>
+			<th>Reference</th>
+			<th>Requestor</th>
+			<th>Title</th>
+			<th>Status</th>
+			<th *ngIf="this.srdService.loggedInUser.length > 0 && this.srdService.loggedInUser[0].accessLevel !== 'Super'">Modify</th>
+			<th>Approval Status</th>
+			<th *ngIf="this.srdService.loggedInUser.length > 0 && this.srdService.loggedInUser[0].accessLevel === 'Super'">Approve</th>
+		</thead>
+		<tbody>
+			<tr *ngFor="let item of submittedSRD">
+				<td (click)="showSRDForm(item)">{{ item.referenceNum }}</td>
+				<td>{{ item.requestor }}</td>
+				<td>{{ item.title }}</td>
+				<td>{{ item.status }}</td>
+				<td *ngIf="item.status === 'Saved' && this.srdService.loggedInUser.length > 0 && this.srdService.loggedInUser[0].accessLevel !== 'Super'">
+					<button class="btn btn-danger" (click)="modifySRD(item)">MODIFY</button>
+				</td>
+        <td *ngIf="item.status !== 'Saved' && this.srdService.loggedInUser.length > 0 && this.srdService.loggedInUser[0].accessLevel !== 'Super'">
+					<p>You cannot modify</p>
+				</td>
+				<td>{{ item.approvalStatus }}</td>
+				<td *ngIf="item.approvalStatus === 'Pending' && item.status === 'Submitted' && this.srdService.loggedInUser.length > 0 && this.srdService.loggedInUser[0].accessLevel === 'Super'">
+					<button class="btn btn-primary" (click)="approveSRD(item)">APPROVE</button>
+				</td>
+        <td *ngIf="item.approvalStatus === 'Pending' && item.status !== 'Submitted' && this.srdService.loggedInUser.length > 0 && this.srdService.loggedInUser[0].accessLevel === 'Super'">
+					Not yet submitted
+				</td>
+        <td *ngIf="item.approvalStatus === 'Approved' && item.status === 'Submitted' && this.srdService.loggedInUser.length > 0 && this.srdService.loggedInUser[0].accessLevel === 'Super'">
+					<p>Approved</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div class="container" *ngIf="submittedSRD.length === 0">
+	<h3>List is Empty</h3>
+</div>

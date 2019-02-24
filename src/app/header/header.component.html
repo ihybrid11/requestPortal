@@ -1,0 +1,33 @@
+<div class="container">
+  <ul class="nav nav-pills flex-column">
+    <li class="nav-item">
+      <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/home']">
+        <i class="fas fa-home"></i>
+        HOME
+      </a>
+    </li> &nbsp;
+    <li class="nav-item" *ngIf="this.srdService.loggedInUser.length > 0">
+      <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/new']">NEW SRD</a>
+    </li> &nbsp;
+    <li class="nav-item" *ngIf="this.srdService.loggedInUser.length === 0">
+      <a class="nav-link" class="nav-link" 
+        [routerLink]="['/user']">NEW SRD</a>
+    </li> &nbsp;
+    <!--<li class="nav-item" *ngIf="this.srdService.loggedInUser.length === 0">
+			<a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/user']">
+				SIGN IN
+			</a>
+		</li> &nbsp;
+		<li class="nav-item" *ngIf="this.srdService.loggedInUser.length > 0">
+			<a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/home']">
+				{{ this.srdService.loggedInUser[0].username }}
+			</a>
+		</li> &nbsp;
+		<li class="nav-item" *ngIf="this.srdService.loggedInUser.length > 0">
+			<a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/home']" (click)="logout()">
+				LOG OUT
+			</a>
+		</li> &nbsp; -->
+    <hr>
+  </ul>
+</div>

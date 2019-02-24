@@ -1,0 +1,24 @@
+<div class="col-sm-12">
+	<table class="table table-borderless table-hover">
+		<thead>
+			<th>#</th>
+			<th>Question</th>
+			<th>Default Value</th>
+			<th></th>
+		</thead>
+		<tbody>
+			<tr *ngFor="let a of srdToBeModified.questions; let index = index;">
+				<td>
+					<label class="form-text">{{ index + 1 }}</label>
+				</td>
+				<td>
+          <label class="form-text">{{ a.question }}</label>
+					<!--<input class="form-control" type="{{a.type}}" ngModel="{{ a.question }}" name="question{{index}}" value="{{ a.question }}"> -->
+				</td>
+				<td>
+          <input class="form-control" type="{{a.type}}" ngModel="{{ a.question }}" name="question{{index}}" value="{{ a.question }}">
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
